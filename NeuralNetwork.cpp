@@ -148,7 +148,7 @@ bool NeuralNetwork::contribute(double y, double p) {
 
     for (int id : inputNodeIds) { //start the recursion
         double outgoingContribution = 0;
-        for (auto& pair : adjacencyList[id]) 
+        for (auto& pair : adjacencyList[id]) {
             double incomingContribution = contribute(pair.second.dest, y, p); //rrecurse going to destination
             visitContributeNeighbor(pair.second, incomingContribution, outgoingContribution);
         }
