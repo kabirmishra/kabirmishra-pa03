@@ -1,3 +1,10 @@
+// pair programming 
+// Kabir Mishra 
+// A2J6C35
+// Noah Ruderman 
+// A334535
+
+
 #include <iostream>
 #include "NeuralNetwork.hpp"
 #include "utility.hpp"
