@@ -71,14 +71,14 @@ vector<double> NeuralNetwork::predict(DataInstance instance) {
     vector<bool> isInput(nodes.size(), false); 
 
     //load input values, mark inputs and add to queue
-    for (int i = 0; i < inputNodeIds.size(); i++) { //iterate through the ids in input nodes
+    for (int i = 0; i < inputNodeIds.size(); i++) { 
         
         
         int id = inputNodeIds[i];
-        nodes[id]->postActivationValue = input[i]; //load raw input as inputs aren't activated
+        nodes[id]->postActivationValue = input[i]; 
         isInput[id] = true; 
         queuee.push(id);
-        visited[id] = true; //push all input nodes into queue and mark as visited and inputs
+        visited[id] = true; 
 
 
 
@@ -92,17 +92,16 @@ vector<double> NeuralNetwork::predict(DataInstance instance) {
         
         
         
-        if (!isInput[v]) { //if not an input, visit it
+        if (!isInput[v]) { //visit if not input
             visitPredictNode(v);
         }
 
 
-        for (auto& pair : adjacencyList[v]) { //for every pair that u is connected to...
-            Connection c = pair.second; //the edge is a connection object
+        for (auto& pair : adjacencyList[v]) { //for every pair that u is connected to..
             
 
         
-            visitPredictNeighbor(c);
+            visitPredictNeighbor(pair.second);
 
 
         //if we haven't added it's destination to the queue, add it
@@ -148,10 +147,9 @@ bool NeuralNetwork::contribute(double y, double p) {
 
     for (int id : inputNodeIds) { //start the recursion
         double outgoingContribution = 0;
-        for (auto& pair : adjacencyList[id]) {
-            Connection& c = pair.second;
-            double incomingContribution = contribute(c.dest, y, p); //recurse on the destination
-            visitContributeNeighbor(c, incomingContribution, outgoingContribution);
+        for (auto& pair : adjacencyList[id]) 
+            double incomingContribution = contribute(pair.second.dest, y, p); //rrecurse going to destination
+            visitContributeNeighbor(pair.second, incomingContribution, outgoingContribution);
         }
 
     }
