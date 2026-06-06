@@ -84,6 +84,7 @@ vector<double> NeuralNetwork::predict(DataInstance instance) {
 
     }
 
+    //BFT while loop
     while (!queuee.empty()) {
         
         
@@ -92,20 +93,20 @@ vector<double> NeuralNetwork::predict(DataInstance instance) {
         
         
         
-        if (!isInput[v]) { //visit if not input
+        if (!isInput[v]) { 
             visitPredictNode(v);
         }
 
 
-        for (auto& pair : adjacencyList[v]) { //for every pair that u is connected to..
+        for (auto& pair : adjacencyList[v]) { 
             
 
         
             visitPredictNeighbor(pair.second);
 
 
-        //if we haven't added it's destination to the queue, add it
-            if(!visited[pair.first]) { //pair.first is the id of the connection
+        //add destination to queue
+            if(!visited[pair.first]) { 
                 queuee.push(pair.first);
                 visited[pair.first] = true;
             }
@@ -113,7 +114,7 @@ vector<double> NeuralNetwork::predict(DataInstance instance) {
         }
     }
 
-    //end of BFT implementation
+    
 
 
 
